@@ -29,7 +29,7 @@ int main()
     //line1.swap(line2);
     std::cout <<"\n\n";
 
-    std::cout << (line1 < line2) << (line1 > line2) <<std::endl;
+    //std::cout << (line1 < line2) << (line1 > line2) <<std::endl;
 
 
 
