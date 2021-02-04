@@ -35,7 +35,7 @@ public:
     bool operator!= (const linetor &lineRight);
     T& operator[](const int index);
 
-    void push_back(T symb);
+    void push_back(const T symb);
     T& at(const int index);
     T& front(){ return m_date[0]; }
     T& back(){ return m_date[m_length]; }
@@ -123,7 +123,7 @@ T &linetor<T>::operator[](const int index){
 }
 
 template<class T>
-void linetor<T>::push_back(T symb){
+void linetor<T>::push_back(const T symb){
 
     T *temp = new T[m_length+1];
     if (m_date != nullptr){
