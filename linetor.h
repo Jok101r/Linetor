@@ -1,5 +1,4 @@
-#ifndef LINETOR_H
-#define LINETOR_H
+#pragma once
 #include <iostream>
 #include <cassert>
 
@@ -46,8 +45,10 @@ public:
     void clear();
     void insert(const int index, const T& symb);
     void erase();
-    void pop_back(){ /*корректно?*/ m_length--;};
+    void pop_back();;
     void swap(linetor& linetor2);
+    //временная
+    T* getDate() { return m_date; }
 
 };
 
@@ -59,7 +60,7 @@ public:
 
 //    return *this;
 
-//}const linetor &lineLeft,
+//}
 
 //и тут не понял(
 template<class T>
@@ -116,7 +117,7 @@ bool linetor<T>::operator!=(const linetor &lineRight)
 template<class T>
 T &linetor<T>::operator[](const int index){
 
-    // не получилось со static_assert
+
     assert (index >= 0 && index <= m_length && "Array out of bounds!" );
 
     return m_date[index];
@@ -130,16 +131,14 @@ void linetor<T>::push_back(const T symb){
         m_length++;
         for(int i = 0; i<m_length; i++)
             temp[i] = m_date[i];
+
     }
 
     delete[] m_date;
-    m_date = new T[m_length];
+    //m_date = new T[m_length];
     m_date = temp;
     m_date[m_length] = symb;
 
-    // ругается малок(
-    //delete[] temp;
-    //temp = nullptr;
 
 }
 
@@ -153,7 +152,7 @@ T &linetor<T>::at(const int index)
 template<class T>
 bool linetor<T>::empty(){
 
-    return (m_length == 0);
+    return (m_length == 0 && m_date==nullptr);
 
 }
 
@@ -178,6 +177,25 @@ void linetor<T>::erase(){
     m_length = 0;
 
 }
+template<class T>
+void linetor<T>::pop_back(){
+
+    //delete m_date[m_length];
+
+    if (m_length == 0){
+        //здесь тоже утечка?
+        m_date = nullptr;
+    }else{
+        T *temp = new T[m_length-1];
+        for( int i=0 ; i < m_length; i++)
+            temp[i] = m_date[i];
+        delete[] m_date;
+        m_length--;
+        m_date = new T [m_length];
+        m_date = temp;
+    }
+
+}
 
 template<class T>
 void linetor<T>::swap(linetor &linetor2)
@@ -188,7 +206,3 @@ void linetor<T>::swap(linetor &linetor2)
     linetor2 = lineTemp;
     delete lineTemp;
 }
-
-//    //
-
-#endif // LINETOR_H
