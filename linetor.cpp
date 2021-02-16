@@ -1,1 +1,0 @@
-#include "linetor.h"
