@@ -24,7 +24,7 @@ public:
     iterator end();
 
     //операция присваивания
-//    linetor& operator=(const linetor &line);
+    linetor& operator=(const linetor<T> &line);
 
     bool operator< (const linetor &lineRight);
     bool operator<= (const linetor &lineRight);
@@ -52,15 +52,16 @@ public:
 
 };
 
-//template<class T>
-//linetor &linetor<T>::operator=(const linetor &line)
-//{
-//    this->m_date = line.m_date;
-//    this->m_length = line.m_length;
+template<class T>
+linetor<T>& linetor<T>::operator=(const linetor<T>  &line)
+{
+    if(&line != this){
+        this->m_date = line.m_date;
+        this->m_length = line.m_length;
+    }
+    return *this;
 
-//    return *this;
-
-//}
+}
 
 //и тут не понял(
 template<class T>
@@ -135,8 +136,11 @@ void linetor<T>::push_back(const T symb){
     }
 
     delete[] m_date;
-    //m_date = new T[m_length];
-    m_date = temp;
+    m_date = new T [m_length];
+    //
+    //убрал m_date = temp ибо тест не срабатывал
+    for (int i=0; i<m_length; i++)
+        m_date[i] = temp[i];
     m_date[m_length] = symb;
 
 
@@ -180,10 +184,8 @@ void linetor<T>::erase(){
 template<class T>
 void linetor<T>::pop_back(){
 
-    //delete m_date[m_length];
 
     if (m_length == 0){
-        //здесь тоже утечка?
         m_date = nullptr;
     }else{
         T *temp = new T[m_length-1];
@@ -204,5 +206,4 @@ void linetor<T>::swap(linetor &linetor2)
     lineTemp = *this;
     *this = linetor2;
     linetor2 = lineTemp;
-    delete lineTemp;
 }

@@ -1,45 +1,85 @@
+#define CATCH_CONFIG_MAIN
 #include <iostream>
 #include <vector>
-#include <linetor.h>
+#include "linetor.h"
+#include "catch2/catch_all.hpp"
 
-int main()
-{
-    std::vector<int> it;
-;
+//TEST_CASE("Vector") {
+//    std::vector<int> vec;
+
+//    std::vector<int> vec1 = { 1, 3 , 5};
+
+//    //мне кажется, что здесь чек не нужен
+//    //CHECK();
+//    //CHECK();
+//    BENCHMARK("push back 5"){
+//            return vec.push_back(5);
+//    };
+//    BENCHMARK("push back 50"){
+//            return vec.push_back(50);
+//    };
+//    BENCHMARK("push back 100"){
+//            return vec.push_back(100);
+//    };
+//    BENCHMARK("pop back"){
+//            return vec.pop_back();
+//    };
+//    BENCHMARK("pop back"){
+//            return vec.pop_back();
+//    };
+//    vec.push_back(50);
+//    vec.push_back(100);
+//    BENCHMARK("empty"){
+//            return vec.empty();
+//    };
+//    BENCHMARK("Swap"){
+//            return vec.swap(vec1);
+//    };
+//}
+
+TEST_CASE("Linetor") {
+    linetor<int> line;
 
     linetor<int> line1;
-    //line1.push_back(10);
-
-    std::cout << line1.empty();
-
-    std::cout <<"\n\n";
-    linetor<int> line2;
-    line2.push_back(77);
-    line2.push_back(6);
-
-        line2.pop_back();
-            line2.push_back(5);
-
-    //line2.push_back(5);
-
-    for (int run = 0; run < line2.length(); run++)
-        std::cout << " "<< line2[run] << "\t" << line2.getDate() + run << std::endl;
 
 
-    //line1.swap(line2);
-//    std::cout <<"\n\n";
+    // not working push_bach
+    BENCHMARK("push back 5"){
+            return line.push_back(5);
+    };
+    BENCHMARK("push back 50"){
+            return line.push_back(50);
+    };
+    BENCHMARK("push back 100"){
+            return line.push_back(100);
+    };
+    BENCHMARK("pop back"){
+            return line.pop_back();
+    };
+    BENCHMARK("pop back"){
+            return line.pop_back();
+    };
+    line.push_back(50);
+    line.push_back(100);
+    BENCHMARK("empty"){
+            return line.empty();
+    };
+    //not working swap
+    BENCHMARK("Swap"){
+            return line.swap(line);
+    };
+}
+int main( int argc, char* argv[] )
+{
+    Catch::Session session;
 
-//    line2.pop_back();
+    int returnCode = session.applyCommandLine( argc, argv );
+    if( returnCode != 0 )
+          return returnCode;
 
+    int numFailed = session.run();
 
-//    for (int run = 0; run < line2.length(); run++)
-//        std::cout << " "<< line2[run];
-
-    //std::cout << (line1 < line2) << (line1 > line2) <<std::endl;
-
-
-
-    return 0;
+    return numFailed;
 
 
 }
