@@ -7,7 +7,7 @@ class linetor
 {
 private:
 
-    int m_length;
+    size_t m_length;
     T *m_date;
 
 public:
@@ -129,6 +129,7 @@ void linetor<T>::push_back(const T symb){
 
     T *temp = new T[m_length+1];
     if (m_date != nullptr){
+
         for(int i = 0; i<=m_length; i++)
             temp[i] = m_date[i];
 
@@ -139,6 +140,7 @@ void linetor<T>::push_back(const T symb){
     m_date = nullptr;
     m_date = temp;
     m_date[m_length] = symb;
+
 
 }
 
@@ -195,10 +197,12 @@ void linetor<T>::pop_back(){
 }
 
 template<class T>
-void linetor<T>::swap(linetor<T> &linetor2)
+void linetor<T>::swap(linetor &linetor2)
 {
-    linetor<T> lineTemp;
-    lineTemp = *this;
-    *this = linetor2;
-    linetor2 = lineTemp;
+    if (*this != linetor2){
+        linetor lineTemp;
+        lineTemp = *this;
+        *this = linetor2;
+        linetor2 = lineTemp;
+    }
 }
