@@ -94,8 +94,8 @@ bool linetor<T>::operator>(const linetor &lineRight)
     return (this->m_length > lineRight.m_length);
 }
 
-inline template<class T>
-        bool linetor<T>::operator>=(const linetor &lineRight)
+template<class T>
+bool linetor<T>::operator>=(const linetor &lineRight)
 {
     return (this->m_length >= lineRight.m_length);
 }

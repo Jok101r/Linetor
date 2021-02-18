@@ -53,3 +53,5 @@ compile_commands.json
 
 # MacOs
 *.DS_Store
+
+build
