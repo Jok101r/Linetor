@@ -73,7 +73,7 @@ typename linetor<T>::iterator linetor<T>::begin()
 template<class T>
 typename linetor<T>::iterator linetor<T>::end()
 {
-    return m_date + m_length;
+    return m_date + m_length+1;
 }
 
 
@@ -95,8 +95,8 @@ bool linetor<T>::operator>(const linetor &lineRight)
     return (this->m_length > lineRight.m_length);
 }
 
-inline template<class T>
-        bool linetor<T>::operator>=(const linetor &lineRight)
+template<class T>
+bool linetor<T>::operator>=(const linetor &lineRight)
 {
     return (this->m_length >= lineRight.m_length);
 }
@@ -129,20 +129,16 @@ void linetor<T>::push_back(const T symb){
 
     T *temp = new T[m_length+1];
     if (m_date != nullptr){
-        m_length++;
-        for(int i = 0; i<m_length; i++)
+        for(int i = 0; i<=m_length; i++)
             temp[i] = m_date[i];
 
+        m_length++;
+
     }
-
     delete[] m_date;
-    m_date = new T [m_length];
-    //
-    //убрал m_date = temp ибо тест не срабатывал
-    for (int i=0; i<m_length; i++)
-        m_date[i] = temp[i];
+    m_date = nullptr;
+    m_date = temp;
     m_date[m_length] = symb;
-
 
 }
 
@@ -193,16 +189,15 @@ void linetor<T>::pop_back(){
             temp[i] = m_date[i];
         delete[] m_date;
         m_length--;
-        m_date = new T [m_length];
         m_date = temp;
     }
 
 }
 
 template<class T>
-void linetor<T>::swap(linetor &linetor2)
+void linetor<T>::swap(linetor<T> &linetor2)
 {
-    linetor lineTemp;
+    linetor<T> lineTemp;
     lineTemp = *this;
     *this = linetor2;
     linetor2 = lineTemp;

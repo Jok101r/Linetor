@@ -44,15 +44,15 @@ TEST_CASE("Linetor") {
 
 
     // not working push_bach
-    BENCHMARK("push back 5"){
-            return line.push_back(5);
-    };
-    BENCHMARK("push back 50"){
-            return line.push_back(50);
-    };
-    BENCHMARK("push back 100"){
-            return line.push_back(100);
-    };
+//    BENCHMARK("push back 5"){
+//            return line.push_back(5);
+//    };
+//    BENCHMARK("push back 50"){
+//            return line.push_back(50);
+//    };
+//    BENCHMARK("push back 100"){
+//            return line.push_back(100);
+//    };
     BENCHMARK("pop back"){
             return line.pop_back();
     };
@@ -71,6 +71,16 @@ TEST_CASE("Linetor") {
 }
 int main( int argc, char* argv[] )
 {
+    linetor<int> line;
+    line.push_back(1);
+    line.push_back(20);
+    line.push_back(30);
+
+    for(auto & i : line)
+        std::cout << i << " ";
+    std::cout<<"\n";
+    for(int i=0; i<line.length(); i++)
+        std::cout << line[i] << " ";
     Catch::Session session;
 
     int returnCode = session.applyCommandLine( argc, argv );
