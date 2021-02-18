@@ -195,9 +195,9 @@ void linetor<T>::pop_back(){
 }
 
 template<class T>
-void linetor<T>::swap(linetor<T> &linetor2)
+void linetor<T>::swap(linetor &linetor2)
 {
-    linetor<T> lineTemp;
+    linetor lineTemp;
     lineTemp = *this;
     *this = linetor2;
     linetor2 = lineTemp;
