@@ -5,20 +5,30 @@
 template <class T>
 class linetor
 {
-private:
-
-    int m_length;
-    T *m_date;
-
 public:
-
     //эту не понял
     typedef T * iterator;
-    linetor() : m_length(0), m_date(nullptr){}
-    linetor(int length) : m_length(length)  { m_date = new T[length]; }
-    linetor(const linetor &linetor1) :
-        m_length(linetor1.m_length), m_date(linetor1.m_date) {}
-    ~linetor() {  erase(); }
+    linetor()
+        : m_length(0)
+        , m_date(nullptr)
+    {
+    }
+    linetor(int length)
+        : m_length(length)
+    {
+        m_date = new T[length];
+    }
+
+    linetor(const linetor &linetor1)
+        : m_length(linetor1.m_length)
+        , m_date(linetor1.m_date)
+    {
+    }
+
+    ~linetor()
+    {
+        erase();
+    }
 
     iterator begin();
     iterator end();
@@ -41,7 +51,12 @@ public:
 
 
     bool empty();
-    int length(){ return m_length+1; }
+
+    int length()
+    {
+        return m_length;
+    }
+
     void clear();
     void insert(const int index, const T& symb);
     void erase();
@@ -50,17 +65,22 @@ public:
     //временная
     T* getDate() { return m_date; }
 
+private:
+    size_t m_length;
+    T * m_date = nullptr;
+
 };
 
-//template<class T>
-//linetor &linetor<T>::operator=(const linetor &line)
-//{
-//    this->m_date = line.m_date;
-//    this->m_length = line.m_length;
-
-//    return *this;
-
-//}
+template<class T>
+linetor<T>& linetor<T>::operator=(const linetor<T> & line)
+{
+    if(&line != this)
+    {
+        this->m_date = line.m_date;
+        this->m_length = line.m_length;
+    }
+    return *this;
+}
 
 //и тут не понял(
 template<class T>
@@ -124,22 +144,21 @@ T &linetor<T>::operator[](const int index){
 }
 
 template<class T>
-void linetor<T>::push_back(const T symb){
-
-    T *temp = new T[m_length+1];
-    if (m_date != nullptr){
-        m_length++;
+void linetor<T>::push_back(const T value)
+{
+    T * temp = new T[m_length+1];
+    if (m_date != nullptr)
+    {
         for(int i = 0; i<m_length; i++)
+        {
             temp[i] = m_date[i];
-
+        }
+        delete[] m_date;
+        m_date = nullptr;
     }
-
-    delete[] m_date;
-    //m_date = new T[m_length];
     m_date = temp;
-    m_date[m_length] = symb;
-
-
+    m_date[m_length] = value;
+    m_length++;
 }
 
 template<class T>
@@ -171,21 +190,21 @@ void linetor<T>::insert(const int index, const T &symb)
 }
 
 template<class T>
-void linetor<T>::erase(){
+void linetor<T>::erase()
+{
     delete[] m_date;
     m_date = nullptr;
     m_length = 0;
-
 }
 template<class T>
-void linetor<T>::pop_back(){
-
-    //delete m_date[m_length];
-
-    if (m_length == 0){
-        //здесь тоже утечка?
+void linetor<T>::pop_back()
+{
+    if (m_length == 0)
+    {
         m_date = nullptr;
-    }else{
+    }
+    else
+    {
         T *temp = new T[m_length-1];
         for( int i=0 ; i < m_length; i++)
             temp[i] = m_date[i];
@@ -194,15 +213,18 @@ void linetor<T>::pop_back(){
         m_date = new T [m_length];
         m_date = temp;
     }
-
 }
 
 template<class T>
-void linetor<T>::swap(linetor &linetor2)
+void linetor<T>::swap(linetor<T> & linetor2)
 {
-    linetor lineTemp;
-    lineTemp = *this;
-    *this = linetor2;
-    linetor2 = lineTemp;
-    delete lineTemp;
+    if (this != &linetor2)
+    {
+        linetor<T> lineTemp;
+        lineTemp = *this;
+        *this = linetor2;
+        linetor2 = lineTemp;
+        lineTemp.m_date = nullptr;
+        lineTemp.m_length = 0;
+    }
 }
