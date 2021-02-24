@@ -44,6 +44,9 @@ TEST_CASE("Linetor") {
     linetor<int> lines;
     REQUIRE(lines.length() == 0);
 
+    linetor<int> lines;
+    REQUIRE(lines.length() == 0);
+
     lines.push_back(50);
     REQUIRE(lines.length() == 1);
 

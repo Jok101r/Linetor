@@ -227,4 +227,5 @@ void linetor<T>::swap(linetor<T> & linetor2)
         lineTemp.m_date = nullptr;
         lineTemp.m_length = 0;
     }
+
 }
