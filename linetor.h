@@ -6,7 +6,6 @@ template <class T>
 class linetor
 {
 public:
-    //эту не понял
     typedef T * iterator;
     linetor()
         : m_length(0)
@@ -34,7 +33,7 @@ public:
     iterator end();
 
     //операция присваивания
-//    linetor& operator=(const linetor &line);
+   linetor& operator=(const linetor &line);
 
     bool operator< (const linetor &lineRight);
     bool operator<= (const linetor &lineRight);
@@ -66,7 +65,7 @@ public:
     T* getDate() { return m_date; }
 
 private:
-    size_t m_length;
+    size_t m_length = 0;
     T * m_date = nullptr;
 
 };
@@ -114,8 +113,8 @@ bool linetor<T>::operator>(const linetor &lineRight)
     return (this->m_length > lineRight.m_length);
 }
 
-inline template<class T>
-        bool linetor<T>::operator>=(const linetor &lineRight)
+template<class T>
+bool linetor<T>::operator>=(const linetor &lineRight)
 {
     return (this->m_length >= lineRight.m_length);
 }
