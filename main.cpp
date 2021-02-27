@@ -3,7 +3,7 @@
 #include <vector>
 #include "linetor.h"
 #include "catch2/catch_all.hpp"
-
+/* Tets benchmark
 TEST_CASE("Vector")
 {
    std::vector<int> vec;
@@ -81,9 +81,17 @@ TEST_CASE("Linetor")
     lines.swap(lines);
 
 }
+*/
 
 int main(int argc, char* argv[])
 {
+
+//    linetor<int>  vec = { 1, 2, 3};
+//    linetor<int>  vec1  { 1, 2, 3};
+//    std::vector<int>  vec2 = { 1, 2, 3};
+//    std::vector<int>  vec3 = {1, 2, 3};
+
+
     Catch::Session session;
 
     int returnCode = session.applyCommandLine( argc, argv );

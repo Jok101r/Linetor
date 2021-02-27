@@ -17,7 +17,17 @@ public:
     {
         m_date = new T[length];
     }
-
+    linetor(std::initializer_list<T> list)
+    {
+        m_length = list.size();
+        m_date = new T[m_length];
+        int i=0;
+        for(auto& item : list)
+        {
+            m_date[i] = item;
+            i++;
+        }
+    }
     linetor(const linetor &linetor1)
         : m_length(linetor1.m_length)
         , m_date(linetor1.m_date)
@@ -35,12 +45,12 @@ public:
     //операция присваивания
    linetor& operator=(const linetor &line);
 
-    bool operator< (const linetor &lineRight);
-    bool operator<= (const linetor &lineRight);
-    bool operator> (const linetor &lineRight);
-    bool operator>= (const linetor &lineRight);
-    bool operator== (const linetor &lineRight);
-    bool operator!= (const linetor &lineRight);
+    bool operator< (const linetor<T> &lineRight);
+    bool operator<= (const linetor<T> &lineRight);
+    bool operator> (const linetor<T> &lineRight);
+    bool operator>= (const linetor<T> &lineRight);
+    bool operator== (const linetor<T> &lineRight);
+    bool operator!= (const linetor<T> &lineRight);
     T& operator[](const int index);
 
     void push_back(const T symb);
@@ -81,7 +91,6 @@ linetor<T>& linetor<T>::operator=(const linetor<T> & line)
     return *this;
 }
 
-//и тут не понял(
 template<class T>
 typename linetor<T>::iterator linetor<T>::begin()
 {
@@ -96,41 +105,63 @@ typename linetor<T>::iterator linetor<T>::end()
 
 
 template<class T>
-bool linetor<T>::operator<(const linetor &lineRight)
+bool linetor<T>::operator<(const linetor<T> &lineRight)
 {
     return (this->m_length < lineRight.m_length);
 }
 
 template<class T>
-bool linetor<T>::operator<=(const linetor &lineRight)
+bool linetor<T>::operator<=(const linetor<T> &lineRight)
 {
     return (this->m_length <= lineRight.m_length);
 }
 
 template<class T>
-bool linetor<T>::operator>(const linetor &lineRight)
+bool linetor<T>::operator>(const linetor<T> &lineRight)
 {
     return (this->m_length > lineRight.m_length);
 }
 
 template<class T>
-bool linetor<T>::operator>=(const linetor &lineRight)
+bool linetor<T>::operator>=(const linetor<T> &lineRight)
 {
     return (this->m_length >= lineRight.m_length);
 }
 
 
 template<class T>
-bool linetor<T>::operator==(const linetor &lineRight)
+bool linetor<T>::operator==(const linetor<T> &lineRight)
 {
-    return (this->m_length == lineRight.m_length);
+    if (this->m_length == lineRight.m_length)
+    {
+        for(int i = 0; i<this->m_length; i++)
+        {
+            if (this->m_date[i] != lineRight.m_date[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }else
+        {
+            return false;
+        }
 
 }
 
 template<class T>
-bool linetor<T>::operator!=(const linetor &lineRight)
+bool linetor<T>::operator!=(const linetor<T> &lineRight)
 {
-    return (this->m_length != lineRight.m_length);
+    if (this->m_length == lineRight.m_length)
+    {
+        for(int i = 0; i<this->m_length;i++)
+            if (this->m_date[i] != lineRight.m_date[i])
+                return true;
+        return false;
+    }else
+        {
+            return true;
+        }
 }
 
 template<class T>
