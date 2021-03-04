@@ -83,6 +83,33 @@ TEST_CASE("Linetor")
 }
 */
 
+TEST_CASE("Unit-test linetor")
+{
+    linetor<int> line1;
+    linetor<int> line2 {1,2,53,60};
+
+    line1.push_back(2);
+    line1.push_back(3);
+    line1.push_back(4);
+    line1.pop_back();
+
+    REQUIRE( line1.length() == 2);
+
+
+    bool check = line1 == line2;
+    REQUIRE( check == false);
+
+    check = line1 < line2;
+    REQUIRE(check == true);
+
+    line1.push_back(1);
+    line1.push_back(2);
+    check = line1 >= line2;
+    REQUIRE(check == true);
+
+
+
+}
 int main(int argc, char* argv[])
 {
 
